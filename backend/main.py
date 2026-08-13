@@ -19,9 +19,11 @@ app = FastAPI(title="SentinelGraph API")
 app.add_middleware(
  CORSMiddleware,
  allow_origins=[
-    "http://localhost:5173","http://127.0.0.1:5173"
-    "http://localhost:5175","http://127.0.0.1:5175"
-    "https://sentinel-graph-alpha.vercel.app"
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:5175",
+    "http://127.0.0.1:5175",
+    "https://sentinel-graph-alpha.vercel.app",
     ],
  allow_credentials=True,
  allow_methods=["*"],
