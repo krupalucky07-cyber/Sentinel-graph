@@ -1,0 +1,461 @@
+/* ============================================
+   Design tokens
+   ============================================ */
+:root {
+  --bg-base: #0b1120;
+  --bg-surface: #131b2e;
+  --bg-surface-raised: #182238;
+  --border-subtle: #263449;
+  --border-strong: #334155;
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --accent: #4f8cff;
+  --accent-hover: #3b76ea;
+  --accent-soft: rgba(79, 140, 255, 0.12);
+
+  --danger: #f4514f;
+  --danger-soft: rgba(244, 81, 79, 0.14);
+  --success: #34d399;
+  --success-soft: rgba(52, 211, 153, 0.12);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -8px rgba(0, 0, 0, 0.45);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(79, 140, 255, 0.07), transparent),
+    radial-gradient(1200px 600px at 90% 0%, rgba(244, 81, 79, 0.05), transparent),
+    var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================
+   Layout
+   ============================================ */
+.dashboard-container {
+  padding: 2.5rem 2rem 4rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 1.75rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.header-title h1 {
+    font-family: 'Times New Roman', Times, serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.header-title p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 3px var(--success-soft);
+  display: inline-block;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.refresh-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.65rem 1.3rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.refresh-btn:hover {
+  background: var(--accent-hover);
+}
+
+.refresh-btn:active {
+  transform: scale(0.97);
+}
+
+.refresh-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   State cards (loading / error / empty)
+   ============================================ */
+.state-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 3rem 2rem;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  margin-top: 1rem;
+  box-shadow: var(--shadow-card);
+}
+
+.state-card h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+}
+
+.error-card {
+  border-color: rgba(244, 81, 79, 0.35);
+  background: linear-gradient(180deg, var(--danger-soft), var(--bg-surface) 60%);
+}
+
+.error-card h3 {
+  color: var(--danger);
+}
+
+.subtext {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid var(--border-strong);
+  border-top-color: var(--accent);
+  margin: 0 auto 1.25rem;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   Tabs
+   ============================================ */
+.view-tabs {
+  display: inline-flex;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  margin-bottom: 1.5rem;
+  gap: 4px;
+}
+
+.view-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.view-tab.active {
+  background: var(--accent);
+  color: white;
+}
+
+.view-tab:not(.active):hover {
+  color: var(--text-primary);
+  background: var(--bg-surface-raised);
+}
+
+/* ============================================
+   Stat strip
+   ============================================ */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-pill {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.2rem;
+}
+
+.stat-pill .stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.stat-pill .stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 0.15rem;
+}
+
+.stat-pill.danger .stat-value {
+  color: var(--danger);
+}
+
+/* ============================================
+   Sections
+   ============================================ */
+.section-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.75rem;
+  box-shadow: var(--shadow-card);
+}
+
+.section-card h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-primary);
+}
+
+.section-card h2 .count-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-surface-raised);
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+}
+
+/* ============================================
+   Node grid
+   ============================================ */
+.node-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.9rem;
+}
+
+.node-card {
+  background: var(--bg-surface-raised);
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.node-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+
+.node-card.flagged {
+  border-color: rgba(244, 81, 79, 0.4);
+  background: linear-gradient(180deg, var(--danger-soft), var(--bg-surface-raised) 70%);
+}
+
+.node-card h4 {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.node-card code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--border-strong);
+  color: var(--text-secondary);
+}
+
+.node-card.flagged .badge {
+  background: var(--danger);
+  color: white;
+}
+
+/* ============================================
+   Table
+   ============================================ */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  padding: 0 1rem 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.data-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.88rem;
+}
+
+.data-table tbody tr:hover {
+  background: var(--bg-surface-raised);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.amount {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.risk-tag {
+  color: var(--danger);
+  font-weight: 600;
+  font-size: 0.82rem;
+  background: var(--danger-soft);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.clean-tag {
+  color: var(--success);
+  font-size: 0.82rem;
+}
+
+/* ============================================
+   Graph view
+   ============================================ */
+.graph-wrapper {
+  position: relative;
+  background: var(--bg-surface-raised);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+.graph-svg {
+  width: 100%;
+  height: 520px;
+  display: block;
+  cursor: grab;
+}
+
+.graph-svg:active {
+  cursor: grabbing;
+}
+
+.graph-legend {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  display: flex;
+  gap: 1.25rem;
+  background: rgba(11, 17, 32, 0.75);
+  backdrop-filter: blur(6px);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.graph-legend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.graph-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--bg-base);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.78rem;
+  box-shadow: var(--shadow-card);
+  max-width: 220px;
+  z-index: 10;
+}
+
+.graph-tooltip .tt-title {
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.graph-tooltip .tt-row {
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}

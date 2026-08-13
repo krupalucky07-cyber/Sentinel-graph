@@ -1,0 +1,15 @@
+# Environment variables (secrets)
+.env
+backend/.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Node / Frontend
+Frontend/node_modules/
+Frontend/dist/
+
+# OS files
+.DS_Store
