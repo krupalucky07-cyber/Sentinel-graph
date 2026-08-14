@@ -30,6 +30,15 @@ app.add_middleware(
  allow_headers=["*"],
 )
 
+@app.get("/")
+def root():
+    return {
+        "message": "SentinelGraph API is running",
+        "docs": "/docs",
+        "health": "/api/health",
+        "endpoint": "/api/detect-fraud"
+    }
+
 # Initialize Neo4j Driver Connection Pool
 driver = None
 try:
